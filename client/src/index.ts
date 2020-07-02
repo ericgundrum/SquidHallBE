@@ -1,6 +1,6 @@
 import "./index.css";
 
-import * as BABYLON from "babylonjs";
+import * as BABYLON from "../squidhall/libs/babylonjs/babylon.js";
 import Keycode from "keycode.js";
 
 import { client } from "./game/network";
@@ -10,11 +10,22 @@ import { client } from "./game/network";
 import { StateHandler } from "../../server/src/rooms/StateHandler";
 import { PressedKeys } from "../../server/src/entities/Player";
 
-const canvas = document.getElementById('game') as HTMLCanvasElement;
-const engine = new BABYLON.Engine(canvas, true);
+import furniture from "../squidhall/libs/modules/furniture.js";
+import pipelineEx from "../squidhall/libs/modules/pipelineex.js";
 
-// This creates a basic Babylon Scene object (non-mesh)
-var scene = new BABYLON.Scene(engine);
+declare global {
+    interface Window { BABYLON: any;  canvas: any; engine: any; scene: any; }
+}
+var BABYLON = window.BABYLON;
+
+declare var SQUIDSPACE: any;
+declare var SQUIDCOMMON: any;
+declare var SquidHall: any;
+
+SquidHall.makeWorld([furniture, pipelineEx]);
+var canvas = window.canvas;
+var engine = window.engine;
+var scene  = window.scene;
 
 // This creates and positions a free camera (non-mesh)
 var camera = new BABYLON.FollowCamera("camera1", new BABYLON.Vector3(0, 5, -10), scene);
@@ -24,18 +35,6 @@ camera.setTarget(BABYLON.Vector3.Zero());
 
 // This attaches the camera to the canvas
 camera.attachControl(canvas, true);
-
-// This creates a light, aiming 0,1,0 - to the sky (non-mesh)
-var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
-
-// Default intensity is 1. Let's dim the light a small amount
-light.intensity = 0.7;
-
-// Our built-in 'ground' shape. Params: name, width, depth, subdivs, scene
-var ground = BABYLON.Mesh.CreateGround("ground1", 6, 6, 2, scene);
-
-// Attach default camera mouse navigation
-// camera.attachControl(canvas);
 
 // Colyseus / Join Room
 client.joinOrCreate<StateHandler>("game").then(room => {
