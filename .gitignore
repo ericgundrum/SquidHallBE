@@ -1,3 +1,7 @@
 node_modules
 /client/lib
 /server/lib
+/log
+.ash_history
+.config
+.npm
