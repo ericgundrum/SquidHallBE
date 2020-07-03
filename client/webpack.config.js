@@ -26,6 +26,7 @@ module.exports = function(options) {
     devtool: 'cheap-source-map',
 
     devServer: {
+      contentBase: path.join(__dirname, 'squidhall'),
       disableHostCheck: true
     },
 
