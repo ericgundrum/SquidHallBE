@@ -2,7 +2,8 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>babylonjs + colyseus</title>
+    <title>Squid Hall Playground</title>
+    <link rel="stylesheet" type="text/css" href="squidhall/css/squidhall.css">
     <script src="squidhall/libs/babylonjs/babylon.js"></script>
     <script src="squidhall/libs/babylonjs/babylonjs.proceduralTextures.min.js"></script>
     <script src="squidhall/libs/babylonjs/babylonjs.materials.min.js"></script>
@@ -16,8 +17,64 @@
     <script src="squidhall/libs/squidhalldebug.js"></script>
 
     <script src="squidhall/libs/modules/world.js"></script>
+    <script src="squidhall/libs/modules/furniture.js"></script>
+    <script src="squidhall/libs/modules/pipelineex.js"></script>
   </head>
   <body>
-    <canvas id="game"></canvas>
+    <div id="toolBar"><a onclick="showCntrlPanelPopup()" href="#">&#9776;</a>
+      <span id="fpsLabel"></span></div>
+    <div id="mPopupBox" class="mpopup">
+      <div class="mpopup-content">
+        <div class="mpopup-head">
+          <span id="mPopupBox-close" class="mpopup-close">&#x274E;</span>
+          <h2 id="mpopup-title">Simple Modal Popup</h2>
+        </div>
+        <div class="mpopup-main" id="mpopup-text">
+        </div>
+        <div class="mpopup-foot" id="mpopup-link"></div>
+      </div>
+    </div>
+    <div id="mCtrlPnl" class="mpopup">
+      <div class="mpopup-content">
+        <div class="mpopup-head">
+          <span id="mCtrlPnl-close" class="mpopup-close">&#x274E;</span>
+          <h2 id="mpopup-title">Debug Control Panel</h2>
+        </div>
+        <div class="mpopup-main" id="mCtrlPnl-Tab1">
+
+          <!-- DEBUG-SPECIFIC MARKUP - Do not use for production. -->
+          <p><input type="checkbox" onchange="flyCkbox(this)"/> Fly</p>
+          <p><input type="checkbox" onchange="inspctCkbox(this)"/> Show Inspector</p>
+          <p><input type="checkbox" onchange="identCkbox(this)"/> Find and Identify Objects</p>
+          <span id="ctrl-searchbox" style="display: none;">
+            <p>Click on an object in the space to identify it.
+              Double click on an object name in the list below to find it in the space.
+              Click off the Find/Identify checkbox to hide labels and the list.</p>
+            <p><select id="searchbox" size=12 ondblclick="findObject(this.value)"></select></p>
+          </span>
+          <!-- DEBUG-SPECIFIC MARKUP END -->
+
+        </div>
+      </div>
+    </div>
+
+    <canvas id="renderCanvas" touch-action="none"></canvas>
+
+    <script>
+      //<![CDATA[
+      /** This is for experimental code executed before the buildWorld() call. */
+      var beforeBuildExperiment = function(scene) {
+          console.log("beforeBuildExperiment()");
+      }
+
+      /** This is for experimental code executed after the buildWorld() call. */
+      var afterBuildExperiment = function(scene) {
+          console.log("afterBuildExperiment()");
+      }
+
+      // Here's where we do the magic…
+      SquidHall.makeWorld([furniture, pipelineEx]);
+      //]]>
+    </script>
   </body>
 </html>

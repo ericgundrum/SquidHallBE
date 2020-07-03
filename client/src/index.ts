@@ -10,34 +10,24 @@ import { client } from "./game/network";
 import { StateHandler } from "../../server/src/rooms/StateHandler";
 import { PressedKeys } from "../../server/src/entities/Player";
 
-import furniture from "../squidhall/libs/modules/furniture.js";
-import pipelineEx from "../squidhall/libs/modules/pipelineex.js";
-
 declare global {
-    interface Window { BABYLON: any;  canvas: any; engine: any; scene: any; }
+    interface Window { BABYLON: any; canvas: any; engine: any; scene: any; }
 }
-var BABYLON = window.BABYLON;
-
-declare var SQUIDSPACE: any;
-declare var SQUIDCOMMON: any;
-declare var SquidHall: any;
-
-SquidHall.makeWorld([furniture, pipelineEx]);
-var canvas = window.canvas;
-var engine = window.engine;
-var scene  = window.scene;
-
-// This creates and positions a free camera (non-mesh)
-var camera = new BABYLON.FollowCamera("camera1", new BABYLON.Vector3(0, 5, -10), scene);
-
-// This targets the camera to scene origin
-camera.setTarget(BABYLON.Vector3.Zero());
-
-// This attaches the camera to the canvas
-camera.attachControl(canvas, true);
 
 // Colyseus / Join Room
 client.joinOrCreate<StateHandler>("game").then(room => {
+    var BABYLON = window.BABYLON;
+    var scene  = window.scene;
+
+    // This creates and positions a free camera (non-mesh)
+    var camera = new BABYLON.FollowCamera("camera1", new BABYLON.Vector3(0, 5, -10), scene);
+
+    // This targets the camera to scene origin
+    camera.setTarget(BABYLON.Vector3.Zero());
+
+    // This attaches the camera to the canvas
+    camera.attachControl(window.canvas, true);
+
     const playerViews: {[id: string]: BABYLON.Mesh} = {};
 
     room.state.players.onAdd = function(player, key) {
@@ -63,7 +53,7 @@ client.joinOrCreate<StateHandler>("game").then(room => {
     };
 
     room.onStateChange((state) => {
-        console.log("New room state:", state.toJSON());
+//        console.log("New room state:", state.toJSON());
     });
 
     // Keyboard listeners
@@ -96,11 +86,6 @@ client.joinOrCreate<StateHandler>("game").then(room => {
 
     // Resize the engine on window resize
     window.addEventListener('resize', function() {
-        engine.resize();
+        window.engine.resize();
     });
-});
-
-// Scene render loop
-engine.runRenderLoop(function() {
-    scene.render();
 });
