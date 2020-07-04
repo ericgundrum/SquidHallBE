@@ -19,32 +19,32 @@ client.joinOrCreate<StateHandler>("game").then(room => {
     var BABYLON = window.BABYLON;
     var scene  = window.scene;
 
-    // This creates and positions a free camera (non-mesh)
-    var camera = new BABYLON.FollowCamera("camera1", new BABYLON.Vector3(0, 5, -10), scene);
-
-    // This targets the camera to scene origin
-    camera.setTarget(BABYLON.Vector3.Zero());
-
-    // This attaches the camera to the canvas
-    camera.attachControl(window.canvas, true);
-
     const playerViews: {[id: string]: BABYLON.Mesh} = {};
 
     room.state.players.onAdd = function(player, key) {
-        // Our built-in 'sphere' shape. Params: name, subdivs, size, scene
-        playerViews[key] = BABYLON.Mesh.CreateSphere("sphere1", 16, 2, scene);
+        // create the player avatar, local or remote
+        playerViews[key] = BABYLON.Mesh.CreateSphere("player "+key, 16, 1, scene);
 
-        // Move the sphere upward 1/2 its height
-        playerViews[key].position.set(player.position.x, player.position.y, player.position.z);
-
-        // Set camera to follow current player
+        // position local player avatar at the camera
         if (key === room.sessionId) {
-            camera.setTarget(playerViews[key].position);
+            let camera_position = scene.activeCamera.globalPosition;
+            player.position.x = camera_position.x;
+            player.position.y = camera_position.y;
+            player.position.z = camera_position.z;
         }
+        playerViews[key].setAbsolutePosition(player.position);
     };
 
     room.state.players.onChange = function(player, key) {
-        playerViews[key].position.set(player.position.x, player.position.y, player.position.z);
+        // adjust local player position to match local camera
+        if (key === room.sessionId) {
+            let camera_position = scene.activeCamera.globalPosition;
+            player.position.x = camera_position.x;
+            player.position.y = camera_position.y;
+            player.position.z = camera_position.z;
+        }
+        // set avatar position
+        playerViews[key].setAbsolutePosition(player.position);
     };
 
     room.state.players.onRemove = function(player, key) {
@@ -58,30 +58,15 @@ client.joinOrCreate<StateHandler>("game").then(room => {
 
     // Keyboard listeners
     const keyboard: PressedKeys = { x: 0, y: 0 };
+    const position = { x: 0, y: 0, z: 0 };
     window.addEventListener("keydown", function(e) {
-        if (e.which === Keycode.LEFT) {
-            keyboard.x = -1;
-        } else if (e.which === Keycode.RIGHT) {
-            keyboard.x = 1;
-        } else if (e.which === Keycode.UP) {
-            keyboard.y = -1;
-        } else if (e.which === Keycode.DOWN) {
-            keyboard.y = 1;
-        }
-        room.send('key', keyboard);
-    });
-
-    window.addEventListener("keyup", function(e) {
-        if (e.which === Keycode.LEFT) {
-            keyboard.x = 0;
-        } else if (e.which === Keycode.RIGHT) {
-            keyboard.x = 0;
-        } else if (e.which === Keycode.UP) {
-            keyboard.y = 0;
-        } else if (e.which === Keycode.DOWN) {
-            keyboard.y = 0;
-        }
-        room.send('key', keyboard);
+        // report camera position as local player position
+        // TASK: filter non-positional keycodes
+        let camera_position = scene.activeCamera.globalPosition;
+        position.x = camera_position.x;
+        position.y = camera_position.y;
+        position.z = camera_position.z;
+        room.send('pos', position);
     });
 
     // Resize the engine on window resize

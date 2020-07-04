@@ -14,6 +14,13 @@ export class GameRoom extends Room<StateHandler> {
             const player: Player = this.state.players[client.sessionId];
             player.pressedKeys = message;
         });
+
+        this.onMessage("pos", (client, message) => {
+            const player: Player = this.state.players[client.sessionId];
+            player.position.x = message.x
+            player.position.y = message.y
+            player.position.z = message.z
+        });
     }
 
     onJoin (client) {
@@ -27,11 +34,11 @@ export class GameRoom extends Room<StateHandler> {
     }
 
     onUpdate () {
-        for (const sessionId in this.state.players) {
-            const player: Player = this.state.players[sessionId];
-            player.position.x += player.pressedKeys.x * 0.1;
-            player.position.z -= player.pressedKeys.y * 0.1;
-        }
+//        for (const sessionId in this.state.players) {
+//            const player: Player = this.state.players[sessionId];
+//            player.position.x += player.pressedKeys.x * 0.1;
+//            player.position.z -= player.pressedKeys.y * 0.1;
+//        }
     }
 
     onLeave (client: Client) {
