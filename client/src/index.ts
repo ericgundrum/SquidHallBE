@@ -38,14 +38,6 @@ client.joinOrCreate<StateHandler>("game").then(room => {
     };
 
     room.state.players.onChange = function(player, key) {
-        // adjust local player position to match local camera
-        if (key === room.sessionId) {
-            let camera_position = scene.activeCamera.globalPosition;
-            player.position.x = camera_position.x;
-            player.position.y = camera_position.y;
-            player.position.z = camera_position.z;
-        }
-        // set avatar position
         playerViews[key].setAbsolutePosition(player.position);
     };
 
