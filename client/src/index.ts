@@ -1,7 +1,6 @@
 import "./index.css";
 
 import * as BABYLON from "../squidhall/libs/babylonjs/babylon.js";
-import Keycode from "keycode.js";
 
 import { client } from "./game/network";
 
@@ -11,7 +10,7 @@ import { StateHandler } from "../../server/src/rooms/StateHandler";
 import { PressedKeys } from "../../server/src/entities/Player";
 
 declare global {
-    interface Window { BABYLON: any; canvas: any; engine: any; scene: any; }
+    interface Window { BABYLON: any; scene: any; }
 }
 
 // Colyseus / Join Room
@@ -61,10 +60,5 @@ client.joinOrCreate<StateHandler>("game").then(room => {
         position.y = camera_position.y;
         position.z = camera_position.z;
         room.send('pos', position);
-    });
-
-    // Resize the engine on window resize
-    window.addEventListener('resize', function() {
-        window.engine.resize();
     });
 });
