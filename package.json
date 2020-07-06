@@ -1,7 +1,7 @@
 {
-  "name": "babylonjs-colyseus",
-  "version": "1.0.0",
-  "description": "Boilerplate intended to be used for the BabylonJS 2.5 Challenge",
+  "name": "Squid Hall Back End",
+  "version": "0.1.0",
+  "description": "CoNZeland Squid Hall social space.",
   "main": "server/lib/index.js",
   "scripts": {
     "compile-server": "npm install --prefix server && tsc -p server",
@@ -10,13 +10,13 @@
     "start": "node server/lib/index.js"
   },
   "engines": {
-    "node": "8.7.0"
+    "node": "12.0.0"
   },
   "repository": {
-    "url": "git@github.com:endel/babylonjs-multiplayer-boilerplate.git",
+    "url": "",
     "type": "git"
   },
-  "author": "Endel Dreyer <endel.dreyer@gmail.com>",
+  "author": "",
   "license": "Apache 2.0",
   "devDependencies": {
     "typescript": "^3.9.3"

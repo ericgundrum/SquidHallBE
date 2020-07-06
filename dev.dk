@@ -1,0 +1,25 @@
+# build docker image faster without context
+# cat ../dev.dk | docker build --build-arg uid=$UID -t node12 -
+
+FROM alpine:3.12
+
+RUN apk add --no-cache npm
+
+ARG uid
+ARG user=me
+RUN adduser -Du $uid $user
+USER $uid
+WORKDIR /home/$user
+
+EXPOSE 8080
+EXPOSE 2657
+
+# run container with $PWD mounted as $HOME
+# when $PWD is project working dir, file edits in host appear in container
+# container shell files, such as history, appear in project work dir
+
+# to get a docker shell and run servers manually
+# docker run -it --rm -v `pwd`:/home/me -p 8080:8080 -p 2657:2657 node12
+
+# to run servers automatically in docker in the background
+# docker run -dit --rm -v `pwd`:/home/me -p 8080:8080 -p 2657:2657 node12 /home/me/run && tail -f log/client.log

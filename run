@@ -1,14 +1,14 @@
-#! /usr/bin/env ash
+#! /usr/bin/env sh
 
 mkdir -p log
 
-echo "Starting client on default port 8080; logging into client.log"
+echo "Starting client on default port 8080; output into log/client.log"
 $(cd client ; npm install && npm start > ../log/client.log 2>&1) &
 
-echo "Starting server on default port 2657; logging into server.log"
+echo "Starting server on default port 2657; output into log/server.log"
 $(cd server ; npm install && npm start > ../log/server.log 2>&1) &
 
 echo 'Use `docker ps` to see mapped host ports.'
 
-# wait unless running interactively
+# wait to keep the background servers running.
 wait
