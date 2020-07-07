@@ -1,8 +1,29 @@
-# BabylonJS + Colyseus: Multiplayer Boilerplate <a href="https://patreon.com/endel" title="Donate to this project using Patreon"><img src="https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.herokuapp.com%2Fendel&style=for-the-badge" alt="Patreon donate button"/></a>
+# Squid Hall Back End
 
 This is a project setup to use BabylonJS 4.x with Colyseus 0.13.x.
 
 <img src="screenshot.png?raw=true" />
+
+## Pulling Sources with git submodules
+
+This project uses [git submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules)
+to acquire static assests from another repo.
+Initial setup is more complicated than a simple git project.
+
+To clone the repo
+
+```
+git clone --recurse-submodules -b squidhall_poc https://github.com/ericgundrum/SquidHallBE.git
+```
+
+Then, to make typical git commands automatically handle the repo submodules
+
+```
+git config submodule.recurse true
+```
+
+Be aware that many GUI git tools do not handle submodules properly.
+Be prepared for some pain if you are unfamiliar with submodules and rely on GUI tools.
 
 ## Quick Start with Docker
 
