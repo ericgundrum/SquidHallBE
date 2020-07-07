@@ -14,7 +14,7 @@ declare global {
 }
 
 // Colyseus / Join Room
-client.joinOrCreate<StateHandler>("game").then(room => {
+client.joinOrCreate<StateHandler>("SquidHall").then(room => {
     var BABYLON = window.BABYLON;
     var scene  = window.scene;
 
@@ -22,9 +22,13 @@ client.joinOrCreate<StateHandler>("game").then(room => {
 
     room.state.players.onAdd = function(player, key) {
         // create the player avatar, local or remote
-        playerViews[key] = BABYLON.Mesh.CreateSphere("player "+key, 16, 1, scene);
+        playerViews[key] = BABYLON.Mesh.CreateSphere("player "+key, 16, 0.5, scene);
         playerViews[key].material = new BABYLON.StandardMaterial("player skin", scene);
-        playerViews[key].material.emissiveColor = new BABYLON.Color3.Random().scale(0.2);
+        playerViews[key].material.emissiveColor =
+            new BABYLON.Color4((key.codePointAt(0)-64)/64,
+                               (key.codePointAt(1)-64)/64,
+                               (key.codePointAt(2)-64)/64,
+                               1).scale(0.2);
 
         // position local player avatar at the camera
         if (key === room.sessionId) {
