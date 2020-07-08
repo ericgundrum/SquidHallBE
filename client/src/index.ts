@@ -54,11 +54,10 @@ client.joinOrCreate<StateHandler>("SquidHall").then(room => {
     });
 
     // Keyboard listeners
-    const keyboard: PressedKeys = { x: 0, y: 0 };
     const position = { x: 0, y: 0, z: 0 };
     window.addEventListener("keydown", function(e) {
         // report camera position as local player position
-        // TASK: filter non-positional keycodes
+        // TASK: filter non-positional keycodes or find a better event
         let camera_position = scene.activeCamera.globalPosition;
         position.x = camera_position.x;
         position.y = camera_position.y;

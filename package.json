@@ -1,5 +1,5 @@
 {
-  "name": "Squid Hall Back End",
+  "name": "SquidHallBE",
   "version": "0.1.0",
   "description": "CoNZeland Squid Hall social space.",
   "main": "server/lib/index.js",
