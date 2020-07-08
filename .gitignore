@@ -2,6 +2,7 @@ node_modules
 /client/lib
 /server/lib
 /log
+/public
 .ash_history
 .config
 .npm
