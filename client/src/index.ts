@@ -7,7 +7,6 @@ import { client } from "./game/network";
 // Re-using server-side types for networking
 // This is optional, but highly recommended
 import { StateHandler } from "../../server/src/rooms/StateHandler";
-import { PressedKeys } from "../../server/src/entities/Player";
 
 declare global {
     interface Window { BABYLON: any; scene: any; }

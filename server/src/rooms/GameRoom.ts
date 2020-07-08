@@ -4,16 +4,11 @@ import { StateHandler } from "./StateHandler";
 import { Player } from "../entities/Player";
 
 export class GameRoom extends Room<StateHandler> {
-    maxClients = 8;
+    maxClients = 32;
 
     onCreate (options) {
         this.setSimulationInterval(() => this.onUpdate());
         this.setState(new StateHandler());
-
-        this.onMessage("key", (client, message) => {
-            const player: Player = this.state.players[client.sessionId];
-            player.pressedKeys = message;
-        });
 
         this.onMessage("pos", (client, message) => {
             const player: Player = this.state.players[client.sessionId];
@@ -25,10 +20,9 @@ export class GameRoom extends Room<StateHandler> {
 
     onJoin (client) {
         const player = new Player();
-        player.name = `Player ${ this.clients.length }`;
-        player.position.x = Math.random();
-        player.position.y = Math.random();
-        player.position.z = Math.random();
+        player.position.x = 0;
+        player.position.y = 0;
+        player.position.z = 0;
 
         this.state.players[client.sessionId] = player;
     }
