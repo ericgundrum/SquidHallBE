@@ -39,10 +39,10 @@ In a terminal window at the root of this repository, run these commands
 
 ```
 # build docker image faster without context
-cat ../dev.dk | docker build --build-arg uid=$UID -t node12 -
+cat dev.dk | docker build --build-arg uid=$UID -t node12 -
 
-# run servers in the background
-docker run -dit --rm -v `pwd`:/home/me -p 8080:8080 -p 2657:2657 node12 /home/me/run
+# run dev servers in the background
+docker run -dit --rm -v `pwd`:/home/me -p 8080:8080 -p 2657:2657 node12 /home/me/run_dev_servers
 ```
 
 Monitor the servers with a command such as `tail -f log/client.log`.
@@ -52,6 +52,18 @@ Be patient.
 Once the servers are running, access SquidHall with `http://localhost:8080`.
 
 Other options are described in 'dev.dk'.
+
+## Quick Start Production
+
+The production server easily can be built and run in any posix environment where
+`node` and `git` are available. From the root of the repo, run
+`npm install && npm start`. This will install all dependencies (within the repo working dir),
+build the client and server applications, and run the server.
+
+The server listens on port 2657 unless environment variable ${PORT} is set to another value.
+
+Note that this deployment touches no files outside of the repo working directory.
+This deployment can be run entirely within a container such as the one created from `dev.dk`.
 
 ## Tooling
 

@@ -4,7 +4,7 @@
   "description": "CoNZeland Squid Hall social space.",
   "main": "server/lib/index.js",
   "scripts": {
-    "compile-server": "npm install --prefix server && tsc -p server",
+    "compile-server": "npm install --prefix server && cd server && npx tsc && cd -",
     "compile-client": "npm install --prefix client && cd client && ./node_modules/.bin/webpack --env.production && cd -",
     "install": "npm run compile-server && npm run compile-client",
     "start": "node server/lib/index.js"
@@ -13,12 +13,9 @@
     "node": "12"
   },
   "repository": {
-    "url": "",
+    "url": "https://github.com/ericgundrum/SquidHallBE",
     "type": "git"
   },
   "author": "",
-  "license": "Apache 2.0",
-  "devDependencies": {
-    "typescript": "^3.9.3"
-  }
+  "license": "Apache 2.0"
 }

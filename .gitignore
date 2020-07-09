@@ -1,7 +1,9 @@
 node_modules
+/client/dist
 /client/lib
 /server/lib
 /log
 .ash_history
 .config
 .npm
+/package-lock.json
