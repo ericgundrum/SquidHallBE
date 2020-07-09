@@ -1,7 +1,7 @@
 {
   "name": "SquidHallBE",
   "version": "0.1.0",
-  "description": "CoNZeland Squid Hall social space.",
+  "description": "CoNZealand Squid Hall social space.",
   "main": "server/lib/index.js",
   "scripts": {
     "compile-server": "npm install --prefix server && cd server && npx tsc && cd -",
