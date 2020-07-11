@@ -4,7 +4,6 @@
   "description": "CoNZealand Squid Hall social space.",
   "main": "server/lib/index.js",
   "scripts": {
-    "preinstall": "git submodule update --init --recursive && ./client/make_links.sh",
     "compile-server": "npm install --prefix server && cd server && npx tsc && cd -",
     "compile-client": "npm install --prefix client && cd client && npx webpack --env.production && cd -",
     "install": "npm run compile-server && npm run compile-client",
