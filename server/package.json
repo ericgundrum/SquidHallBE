@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "prepare": "echo prepare script runs here",
     "start": "onchange 'src/**.ts' -i -d 1000 -- ts-node src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
