@@ -6,7 +6,6 @@
   "main": "index.js",
   "scripts": {
     "preinstall": "git submodule update --init --recursive && ./make_links.sh",
-    "prepare": "echo prepare script runs here",
     "start": "webpack-dev-server --host 0.0.0.0",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
