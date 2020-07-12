@@ -7,7 +7,7 @@
     "compile-server": "npm install --prefix server && cd server && npx tsc && cd -",
     "compile-client": "npm install --prefix client && cd client && npx webpack --env.production && cd -",
     "install": "npm run compile-server && npm run compile-client",
-    "start": "node --optimize_for_size --max_old_space_size=460 --gc_interval=100 server/lib/index.js"
+    "start": "DEBUG=colyseus:* node --optimize_for_size --max_old_space_size=460 --gc_interval=100 server/lib/index.js"
   },
   "engines": {
     "node": "12"
