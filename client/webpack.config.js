@@ -41,7 +41,7 @@ module.exports = function(options) {
     plugins: [
       new ExtractTextPlugin("styles.css"),
       new HtmlWebpackPlugin({
-        template: path.resolve('src/index.html')
+        template: path.resolve('squidhall/squidhall.html')
       }),
     ],
 
