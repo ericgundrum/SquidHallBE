@@ -1,7 +1,3 @@
-import "./index.css";
-
-import * as BABYLON from "../squidhall/libs/babylonjs/babylon.js";
-
 import { client } from "./game/network";
 
 // Re-using server-side types for networking
@@ -17,7 +13,7 @@ client.joinOrCreate<StateHandler>("SquidHall").then(room => {
     var BABYLON = window.BABYLON;
     var scene  = window.scene;
 
-    const playerViews: {[id: string]: BABYLON.Mesh} = {};
+    const playerViews: {[id: string]: any} = {};
 
     room.state.players.onAdd = function(player, key) {
         // create the player avatar, local or remote
@@ -48,9 +44,9 @@ client.joinOrCreate<StateHandler>("SquidHall").then(room => {
         delete playerViews[key];
     };
 
-    room.onStateChange((state) => {
+//    room.onStateChange((state) => {
 //        console.log("New room state:", state.toJSON());
-    });
+//    });
 
     // Keyboard listeners
     const position = { x: 0, y: 0, z: 0 };
