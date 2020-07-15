@@ -9,6 +9,7 @@ export class GameRoom extends Room<StateHandler> {
     onCreate (options) {
         this.setSimulationInterval(() => this.onUpdate());
         this.setState(new StateHandler());
+        this.setSeatReservationTime(30);
 
         this.onMessage("pos", (client, message) => {
             const player: Player = this.state.players[client.sessionId];
