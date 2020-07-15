@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "babylonjs-colyseus-client",
+  "name": "squidhall-multiuser-client",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -17,8 +17,6 @@
     "file-loader": "^0.10.1",
     "html-webpack-plugin": "^3.2.0",
     "style-loader": "^0.14.1",
-    "ts-loader": "^5.3.1",
-    "typescript": "^3.9.3",
     "webpack": "^4.5.0",
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.3",

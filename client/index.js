@@ -1,19 +1,18 @@
-import { client } from "./game/network";
+import { Client } from "colyseus.js";
 
-// Re-using server-side types for networking
-// This is optional, but highly recommended
-import { StateHandler } from "../../server/src/rooms/StateHandler";
+const PROTOCOL = window.location.protocol.replace("http", "ws");
+const ENDPOINT = process.env.NODE_ENV === 'production'
+    ? `${ PROTOCOL }//${ window.location.host }`
+    : `${ PROTOCOL }//${ window.location.hostname }:2657` // client devServer separate from ws server
 
-declare global {
-    interface Window { BABYLON: any; scene: any; }
-}
+const client = new Client(ENDPOINT);
 
 // Colyseus / Join Room
-client.joinOrCreate<StateHandler>("SquidHall").then(room => {
+client.joinOrCreate("SquidHall").then(room => {
     var BABYLON = window.BABYLON;
     var scene  = window.scene;
 
-    const playerViews: {[id: string]: any} = {};
+    const playerViews = [];
 
     room.state.players.onAdd = function(player, key) {
         // create the player avatar, local or remote
