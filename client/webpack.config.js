@@ -35,6 +35,7 @@ module.exports = function(options) {
         { test: /\.ts$/, loader: "ts-loader" },
         { test: /\.css$/, loader: ExtractTextPlugin.extract({ fallback: "style-loader", use: "css-loader" }) },
         { test: /\.(woff|woff2|eot|ttf|svg)$/, loader: 'file-loader?limit=1024&name=[name].[ext]' },
+        { test: require.resolve('./squidhall/libs/modules/world.js'), use: 'exports-loader?exports=default|world' },
       ]
     },
 

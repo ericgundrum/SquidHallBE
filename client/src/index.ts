@@ -1,3 +1,5 @@
+import world from "../squidhall/libs/modules/world.js";
+window.world = world;
 import { client } from "./game/network";
 
 // Re-using server-side types for networking
@@ -5,7 +7,7 @@ import { client } from "./game/network";
 import { StateHandler } from "../../server/src/rooms/StateHandler";
 
 declare global {
-    interface Window { BABYLON: any; scene: any; }
+    interface Window { BABYLON: any; scene: any; world: any; }
 }
 
 // Colyseus / Join Room
