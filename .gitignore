@@ -3,7 +3,10 @@ node_modules
 /client/lib
 /server/lib
 /log
-.ash_history
-.config
-.npm
+/.ash_history
+/.cache
+/.config
+/.local
+/.npm
+/.netrc
 /package-lock.json
