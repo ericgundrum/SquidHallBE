@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<!-- 
+		This is the Squid Hall production page.
+	-->
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Squid Hall</title>
+		<link rel="stylesheet" type="text/css" href="css/squidhall.css">
+		
+		<!-- SCRIPTS START -->
+
+		<!-- Babylon.js support libraries START -->
+
+		<!-- Local copies so we control features.-->
+		<script src="libs/babylonjs/babylon.js"></script>
+		<script src="libs/babylonjs/babylonjs.proceduralTextures.min.js"></script>
+		<script src="libs/babylonjs/babylonjs.materials.min.js"></script>
+		<script src="libs/babylonjs/loaders/babylonjs.loaders.min.js"></script>
+
+		<!-- CDN for production and final testing.
+		<script src="https://cdn.babylonjs.com/babylon.js"></script>
+		<script src="https://cdn.babylonjs.com/babylonjs.proceduralTextures.min.js"></script>
+		<script src="https://cdn.babylonjs.com/babylonjs.materials.min.js"></script>
+		<script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
+		-->
+
+		<!-- Babylon.js support libraries END -->
+
+		<!-- Other libraries START -->
+		<!-- Other libraries END -->
+
+		<!-- Squidspace START -->
+		<!-- Squidspace END -->
+
+		<!-- SCRIPTS END -->
+	</head>
+	<body>
+
+		<div id="toolBar"><a onclick="showCntrlPanelPopup()" href="#">&#9776;</a> 
+			<span id="fpsLabel"></span></div>
+
+		<div id="mPopupBox" class="mpopup">
+		    <div class="mpopup-content">
+		        <div class="mpopup-head">
+		            <span id="mPopupBox-close" class="mpopup-close">&#x274E;</span>
+		            <h2 id="mpopup-title">Simple Modal Popup</h2>
+		        </div>
+		        <div class="mpopup-main" id="mpopup-text">
+		        </div>
+		        <div class="mpopup-foot" id="mpopup-link"></div>
+		    </div>
+		</div>
+
+		<div id="mCtrlPnl" class="mpopup">
+		    <div class="mpopup-content">
+		        <div class="mpopup-head">
+		            <span id="mCtrlPnl-close" class="mpopup-close">&#x274E;</span>
+		            <h2 id="mpopup-title">Control Panel</h2>
+		        </div>
+		        <div class="mpopup-main" id="mCtrlPnl-Tab1">
+		        </div>
+		    </div>
+		</div>
+
+		<canvas id="renderCanvas" touch-action="none"></canvas>
+	</body>
+</html>

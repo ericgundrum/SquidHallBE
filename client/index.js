@@ -1,3 +1,14 @@
+const SQUIDSPACE = require( "./squidhall/libs/squidspace.js" );
+const SQUIDCOMMON = require( "./squidhall/libs/squidmods/squidcommon.js" );
+const SquidHall = require( "./squidhall/libs/squidhall.js" );
+const world = require( "./squidhall/libs/modules/world.js" );
+import furniture from "./squidhall/libs/modules/furniture.js";
+import pipelineEx from "./squidhall/libs/modules/pipelineex.js";
+
+window.SQUIDSPACE = SQUIDSPACE;
+window.SQUIDCOMMON = SQUIDCOMMON;
+window.world = world;
+
 import { Client } from "colyseus.js";
 
 const PROTOCOL = window.location.protocol.replace("http", "ws");
@@ -59,3 +70,5 @@ client.joinOrCreate("SquidHall").then(room => {
         room.send('pos', position);
     });
 });
+
+SquidHall.makeWorld([furniture, pipelineEx]);
