@@ -3,7 +3,6 @@ const SQUIDCOMMON = require( "./squidhall/libs/squidmods/squidcommon.js" );
 const SquidHall = require( "./squidhall/libs/squidhall.js" );
 const world = require( "./squidhall/libs/modules/world.js" );
 import furniture from "./squidhall/libs/modules/furniture.js";
-import pipelineEx from "./squidhall/libs/modules/pipelineex.js";
 
 window.SQUIDSPACE = SQUIDSPACE;
 window.SQUIDCOMMON = SQUIDCOMMON;
@@ -71,4 +70,4 @@ client.joinOrCreate("SquidHall").then(room => {
     });
 });
 
-SquidHall.makeWorld([furniture, pipelineEx]);
+SquidHall.makeWorld([furniture]);
