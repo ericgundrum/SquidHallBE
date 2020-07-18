@@ -13,6 +13,7 @@ export class GameRoom extends Room<StateHandler> {
 
         this.onMessage("pos", (client, message) => {
             const player: Player = this.state.players[client.sessionId];
+            player.position.r = message.r
             player.position.x = message.x
             player.position.y = message.y
             player.position.z = message.z
@@ -21,6 +22,7 @@ export class GameRoom extends Room<StateHandler> {
 
     onJoin (client) {
         const player = new Player();
+        player.position.r = 0;
         player.position.x = 0;
         player.position.y = 0;
         player.position.z = 0;

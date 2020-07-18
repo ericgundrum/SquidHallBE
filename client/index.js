@@ -28,8 +28,9 @@ client.joinOrCreate("SquidHall").then(room => {
         // position local player avatar at the camera
         if (key === room.sessionId) {
             let camera_position = scene.activeCamera.globalPosition;
+            player.position.r = 0;
             player.position.x = camera_position.x;
-            player.position.y = camera_position.y + 7;
+            player.position.y = camera_position.y;
             player.position.z = camera_position.z;
         }
 
@@ -45,6 +46,7 @@ client.joinOrCreate("SquidHall").then(room => {
 
     room.state.players.onChange = function(player, key) {
         playerViews[key].setAbsolutePosition(player.position);
+        playerViews[key].rotation.y = player.position.r;
     };
 
     room.state.players.onRemove = function(player, key) {
@@ -57,7 +59,7 @@ client.joinOrCreate("SquidHall").then(room => {
 //    });
 
     // Keyboard listeners
-    const position = { x: 0, y: 0, z: 0 };
+    const position = { r: 0, x: 0, y: 0, z: 0 };
     window.addEventListener("keydown", function(e) {
         // report camera position as local player position
         // TASK: filter non-positional keycodes or find a better event
@@ -65,6 +67,7 @@ client.joinOrCreate("SquidHall").then(room => {
         position.x = camera_position.x;
         position.y = camera_position.y;
         position.z = camera_position.z;
+        position.r = scene.activeCamera.rotation.y - Math.PI;
         room.send('pos', position);
     });
 });
