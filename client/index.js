@@ -36,7 +36,7 @@ client.joinOrCreate("SquidHall").then(room => {
 
         // create the player avatar, local or remote
         let pos = new BABYLON.Vector3(player.position.x, player.position.y, player.position.z)
-        playerViews[key] = SquidHall.makeAvatar(key, pos, new BABYLON.Vector3(), scene);
+        playerViews[key] = SquidHall.makeAvatar(key, pos, new BABYLON.Vector3(0, player.position.r, 0), scene);
         playerViews[key].material.emissiveColor_unused =
             new BABYLON.Color4((key.codePointAt(0)-64)/64,
                                (key.codePointAt(1)-64)/64,
