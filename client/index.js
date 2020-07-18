@@ -25,23 +25,22 @@ client.joinOrCreate("SquidHall").then(room => {
     const playerViews = [];
 
     room.state.players.onAdd = function(player, key) {
-        // create the player avatar, local or remote
-        playerViews[key] = BABYLON.Mesh.CreateSphere("player "+key, 16, 0.5, scene);
-        playerViews[key].material = new BABYLON.StandardMaterial("player skin", scene);
-        playerViews[key].material.emissiveColor =
-            new BABYLON.Color4((key.codePointAt(0)-64)/64,
-                               (key.codePointAt(1)-64)/64,
-                               (key.codePointAt(2)-64)/64,
-                               1).scale(0.2);
-
         // position local player avatar at the camera
         if (key === room.sessionId) {
             let camera_position = scene.activeCamera.globalPosition;
             player.position.x = camera_position.x;
-            player.position.y = camera_position.y;
+            player.position.y = camera_position.y + 7;
             player.position.z = camera_position.z;
         }
-        playerViews[key].setAbsolutePosition(player.position);
+
+        // create the player avatar, local or remote
+        let pos = new BABYLON.Vector3(player.position.x, player.position.y, player.position.z)
+        playerViews[key] = SquidHall.makeAvatar(key, pos, new BABYLON.Vector3(), scene);
+        playerViews[key].material.emissiveColor_unused =
+            new BABYLON.Color4((key.codePointAt(0)-64)/64,
+                               (key.codePointAt(1)-64)/64,
+                               (key.codePointAt(2)-64)/64,
+                               1).scale(0.2);
     };
 
     room.state.players.onChange = function(player, key) {
