@@ -37,11 +37,16 @@ client.joinOrCreate("SquidHall").then(room => {
         // create the player avatar, local or remote
         let pos = new BABYLON.Vector3(player.position.x, player.position.y, player.position.z)
         playerViews[key] = SquidHall.makeAvatar(key, pos, new BABYLON.Vector3(0, player.position.r, 0), scene);
-        playerViews[key].material.emissiveColor_unused =
-            new BABYLON.Color4((key.codePointAt(0)-64)/64,
-                               (key.codePointAt(1)-64)/64,
-                               (key.codePointAt(2)-64)/64,
-                               1).scale(0.2);
+//        playerViews[key].material.diffuseColor = new BABYLON.Color3(1,0,0);
+//        playerViews[key].material.specularColor = new BABYLON.Color3(0,0,1);
+        playerViews[key].material = playerViews[key].material.clone(key);
+        playerViews[key].material.diffuseColor_dev =
+            new BABYLON.Color4((key.codePointAt(0)-32)/96,
+                               (key.codePointAt(3)-32)/96,
+                               (key.codePointAt(6)-32)/96,
+                               1).scale(1);
+        console.log('join avatar ' + key + ', color: ' + playerViews[key].material.diffuseColor);
+        console.log(    'code points: ' + key.codePointAt(0), key.codePointAt(3), key.codePointAt(6));
     };
 
     room.state.players.onChange = function(player, key) {
