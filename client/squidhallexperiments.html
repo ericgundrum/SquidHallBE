@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<!-- 
-		This is the Squid Hall production page.
+		This is the Squid Hall experiment page. It should be the same as the
+		production page, but with extra debug capabilities and the ability
+		to add experimental code before and after the world is built.
 	-->
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title>Squid Hall</title>
+		<title>Squid Hall Experiments</title>
 		<link rel="stylesheet" type="text/css" href="css/squidhall.css">
 		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;800&display=swap" rel="stylesheet">
-
 		
 		<!-- SCRIPTS START -->
 
@@ -34,7 +35,7 @@
 		<!-- SCRIPTS END -->
 	</head>
 	<body>
-
+		
 		<div id="toolBar">
 			<a onclick="showCntrlPanelPopup()" href="#">&#9776;</a> 
 			<span id="fpsLabel"></span>
@@ -60,6 +61,15 @@
 		        </div>
 		        <div class="mpopup-main" id="mCtrlPnl-Tab1">
 		            <p><input id="mAudioCB" type="checkbox" onchange="audioCkbox(this)" checked/> Play Audio</p>
+					<!-- DEBUG-SPECIFIC MARKUP - Do not use for production. -->
+		            <p><input type="checkbox" onchange="flyCkbox(this)"/> Fly</p>
+		            <p><input type="checkbox" onchange="inspctCkbox(this)"/> Show Inspector</p>
+		            <p><input type="checkbox" onchange="identCkbox(this)"/> Find and Identify Objects</p>
+					<span id="ctrl-searchbox" style="display: none;">
+			            <p>Click on an object in the space to identify it. Double click on an object name in the list below to find it in the space. Click off the Find/Identify checkbox to hide labels and the list.</p>
+						<p><select id="searchbox" size=12 ondblclick="findObject(this.value)"></select></p>
+					</span>
+					<!-- DEBUG-SPECIFIC MARKUP END -->
 		        </div>
 				<div class="mpopup-foot"></div>
 		    </div>

@@ -1,12 +1,23 @@
 const SQUIDSPACE = require( "./squidhall/libs/squidspace.js" );
 const SQUIDCOMMON = require( "./squidhall/libs/squidmods/squidcommon.js" );
 const SquidHall = require( "./squidhall/libs/squidhall.js" );
-const world = require( "./squidhall/libs/modules/world.js" );
-import furniture from "./squidhall/libs/modules/furniture.js";
-
 window.SQUIDSPACE = SQUIDSPACE;
 window.SQUIDCOMMON = SQUIDCOMMON;
+
+let want_debug = false;
+if (want_debug === true) {
+    const SQUIDDEBUG = require( "./squidhall/libs/squidmods/squiddebug.js" );
+    const SquidHallDebug = require( "./squidhall/libs/squidhalldebug.js" );
+    window.SQUIDDEBUG = SQUIDDEBUG;
+}
+
+const world = require( "./squidhall/libs/modules/world.js" );
+const content = require( "./squidhall/libs/modules/content.js" );
+import hall from "./squidhall/libs/modules/hall.js";
+import furniture from "./squidhall/libs/modules/furniture.js";
+
 window.world = world;
+window.content = content;
 
 import { Client } from "colyseus.js";
 
@@ -67,4 +78,4 @@ client.joinOrCreate("SquidHall").then(room => {
     });
 });
 
-SquidHall.makeWorld([furniture]);
+SquidHall.makeWorld([hall, furniture]);
