@@ -9,6 +9,7 @@ PUBLIC=${PUBLIC:-"dist"}
 
 mkdir -p ${PUBLIC} && cd ${PUBLIC}
 
+squid_link audio
 squid_link css
 squid_link img
 squid_link libs
