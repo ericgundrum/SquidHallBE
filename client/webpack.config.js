@@ -36,7 +36,6 @@ module.exports = function(options) {
         { test: /\.(woff|woff2|eot|ttf|svg)$/, loader: 'file-loader?limit=1024&name=[name].[ext]' },
         { test: require.resolve('./squidhall/libs/modules/furniture.js'), use: 'exports-loader?exports=default|[name]' },
         { test: require.resolve('./squidhall/libs/modules/hall.js'), use: 'exports-loader?exports=default|[name]' },
-        { test: require.resolve('./squidhall/libs/modules/content.js'), use: 'exports-loader?type=commonjs&exports=single|[name]' },
         { test: require.resolve('./squidhall/libs/modules/world.js'), use: 'exports-loader?type=commonjs&exports=single|[name]' },
         { test: require.resolve('./squidhall/libs/squidhall.js'), use: 'exports-loader?type=commonjs&exports=single|SquidHall' },
 //        { test: require.resolve('./squidhall/libs/squidhalldebug.js'), use: 'exports-loader?type=commonjs&exports=single|SquidHallDebug' },

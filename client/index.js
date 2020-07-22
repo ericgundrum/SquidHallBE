@@ -12,19 +12,21 @@ if (want_debug === true) {
 }
 
 const world = require( "./squidhall/libs/modules/world.js" );
-const content = require( "./squidhall/libs/modules/content.js" );
+window.world = world;
+
+require("./squidhall/libs/modules/content.js");
 import hall from "./squidhall/libs/modules/hall.js";
 import furniture from "./squidhall/libs/modules/furniture.js";
 
-window.world = world;
-window.content = content;
-
 import { Client } from "colyseus.js";
 
+// adjust websocket endpoint for server runtime environment
+const EC2_HOSTNAME = 'ec2-18-222-3-245.us-east-2.compute.amazonaws.com';
+const HOSTNAME = window.location.hostname.endsWith('amazonaws.com') ? EC2_HOSTNAME : window.location.hostname;
+const PORT = process.env.NODE_ENV === 'production'
+      ? window.location.port : 2657;
 const PROTOCOL = window.location.protocol.replace("http", "ws");
-const ENDPOINT = process.env.NODE_ENV === 'production'
-    ? `${ PROTOCOL }//${ window.location.host }`
-    : `${ PROTOCOL }//${ window.location.hostname }:2657` // client devServer separate from ws server
+const ENDPOINT = `${ PROTOCOL }//${ HOSTNAME }:${ PORT }`;
 
 const client = new Client(ENDPOINT);
 
@@ -78,4 +80,12 @@ client.joinOrCreate("SquidHall").then(room => {
     });
 });
 
-SquidHall.makeWorld([hall, furniture]);
+window.welcomeMessage = {
+    "title": "Welcome to Squid Hall - A VR re-creation of the TSB Arena",
+    "text": "Your mouse controls the direction you are facing. " +
+            "The arrow keys or the W, A, S, and D keys control movement forward/back, and left/right. " +
+            "You can click on some of the objects to learn more about them.<br/><br/>" +
+            "Click the close button or outside this message box to start."
+};
+
+SquidHall.makeWorld([hall, furniture], null, null, true);
