@@ -47,7 +47,8 @@ module.exports = function(options) {
 
     plugins: [
       new HtmlWebpackPlugin({
-        template: path.resolve('./squidhall.html')
+//        template: path.resolve('./squidhall.html')
+        template: path.resolve('./squidhalltest.html')
       }),
     ],
 
