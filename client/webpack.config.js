@@ -15,12 +15,14 @@ module.exports = function(options) {
     mode: MODE,
 
     entry: {
-      main: path.resolve('./index.js')
+        main: path.resolve('./index.js'),
+//        babylon: path.resolve('./node_modules/babylonjs/babylon.max.js'),
+        content: path.resolve('./squidhall/libs/modules/content.js'),
     },
 
     output: {
-      path: __dirname + "/dist",
-      filename: 'bundle.js'
+      filename: '[name].bundle.js',
+      path: __dirname + "/dist"
     },
 
     devtool: 'cheap-source-map',

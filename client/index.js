@@ -10,8 +10,6 @@ const SquidHall = require( "./squidhall/libs/squidhall.js" );
 window.SQUIDSPACE = SQUIDSPACE;
 window.SQUIDCOMMON = SQUIDCOMMON;
 
-//let want_debug = true;
-//if (want_debug === true) {
 const SQUIDDEBUG = require( "./squidhall/libs/squidmods/squiddebug.js" );
 window.SQUIDDEBUG = SQUIDDEBUG;
 import { flyCkbox, identCkbox, inspctCkbox, setupDebugBefore, setupDebugAfter, findObject }
@@ -22,12 +20,10 @@ window.inspctCkbox = inspctCkbox
 window.setupDebugBefore = setupDebugBefore
 window.setupDebugAfter = setupDebugAfter
 window.findObject = findObject
-//}
 
 const world = require( "./squidhall/libs/modules/world.js" );
 window.world = world;
 
-require("./squidhall/libs/modules/content.js");
 import hall from "./squidhall/libs/modules/hall.js";
 import furniture from "./squidhall/libs/modules/furniture.js";
 
