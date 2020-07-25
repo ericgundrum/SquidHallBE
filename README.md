@@ -1,4 +1,4 @@
-# Squid Hall Back End
+# Squid Hall Multi-User
 
 This is a project setup to use BabylonJS 4.x with Colyseus 0.13.x.
 
@@ -13,7 +13,7 @@ Initial setup is more complicated than a simple git project.
 To clone the repo
 
 ```
-git clone --recurse-submodules -b squidhall_poc https://github.com/ericgundrum/SquidHallBE.git
+git clone --recurse-submodules -b deployable https://github.com/ericgundrum/SquidHallBE.git
 ```
 
 Then, to make typical git commands automatically handle the repo submodules
@@ -65,6 +65,67 @@ The server listens on port 2657 unless environment variable ${PORT} is set to an
 Note that this deployment touches no files outside of the repo working directory.
 This deployment can be run entirely within a container such as the one created from `dev.dk`.
 
+## AWS Deployment
+
+Deployment to AWS is a bit more complicated to improve performance and scaling flexibility.
+
+### Client
+All client assets are static. They are deployed from 's3://squidhall/'.
+Executing 'client/make.sh' will compile the babylon files, the colyseus client files
+and copy all files needed for the client runtime to 'client/dist'.
+
+Executing 'client/make.sh sync' makes and copies files as above and then copies
+everything in 'client/dist' to 's3://squidhall/' where it is publically accessible.
+This `sync` command requires the `aws-cli` tool be configured with credentials to the destination.
+
+### Server
+Colyseus server is deployed to an EC2 t2.micro instance listening on port 80.
+The server must have `git` and `npm` installed.
+Currently the server is manually setup, updated and activated using these commands
+
+Setup
+```
+sudo apt update
+sudo apt install --assume-yes --auto-remove --no-install-recommends git npm
+git clone --depth=1 -b deployable https://github.com/ericgundrum/SquidHallBE.git
+cd SquidHallBE
+npm run compile-server
+sudo systemctl enable server/squidhallmu.service
+```
+
+Update
+```
+cd SquidHallBE
+git pull
+sudo systemctl daemon-reload
+sudo systemctl restart squidhallmu.service
+```
+
+Activation
+```
+sudo systemctl start squidhallmu.service
+```
+
+Colyseus server log message are written to the system journal.
+View them with a command such as
+`sudo journalctl -u squidhallmu.service --since=-5m -f`.
+More information can be gleaned from
+[man journalctl](http://manpages.ubuntu.com/manpages/focal/en/man1/journalctl.1.html).
+
+### Coordinating Access
+The main user entry point is any of several root files at
+http://squidhall.s3-website.us-east-2.amazonaws.com/
+
+That URL opens an index file listing several rooms available without multi-user capabilities.
+
+Currently multi-user is limited to
+http://squidhall.s3-website.us-east-2.amazonaws.com/squidhall_mu.html
+
+The multi-user client must know how to find the multi-user server.
+Currently the server's generic hostname is coded in 'client/index.js'
+as `EC2_HOSTNAME`. Its value must be updated and the client rebuilt
+if the colyseus server hostname changes.
+
 ## Tooling
 
 If not using docker as described above, you will need nodeJS and `npm` to install project dependencies
@@ -102,7 +163,7 @@ This will spawn the `webpack-dev-server`, listening on [http://localhost:8080](h
 
 ### Server Application Manually
 
-For the server, the steps are exactly the same.
+For the development server, the steps are exactly the same.
 
 ```
 cd server
