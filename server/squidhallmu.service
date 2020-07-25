@@ -1,0 +1,25 @@
+
+[Unit]
+Description=Colyseus server for multi-user SquidHallVR
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Environment=PORT=80
+Environment=DEBUG=colyseus:*
+Environment=NODE_ENV=production
+Environment=WORKDIR=/home/ubuntu/SquidHallBE
+Environment=ENTRY=server/lib/index.js
+
+SyslogIdentifier=SquidHall
+Type=simple
+# User=ubuntu
+ExecStart=/usr/bin/node --optimize_for_size --max_old_space_size=840 --gc_interval=100 ${WORKDIR}/${ENTRY}
+Restart=on-failure
+RestartSec=2
+
+CapabilityBoundingSet=CAP_NET_BIND_SERVICE
+NoNewPrivileges=yes
+
+[Install]
+WantedBy=multi-user.target
