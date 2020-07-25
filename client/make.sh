@@ -6,21 +6,21 @@
 
 set -e
 
-aws() {
-    if [ -z `which aws` ] && [ `which docker` ] ; then
-        sudo docker run -it --rm -v ~/.config/aws:/root/.aws -v $(pwd):/aws aws $@
-    else
-        aws $@
-    fi
-}
+if [ $(which docker) ] && [ "$(id)" == *docker* ] ; then
+    dk() { docker "$@" ; }
+else
+    dk() { sudo docker "$@" ; }
+fi
 
-webpack() {
-    if [ -z `which npx` ] && [ `which docker` ] ; then
-        sudo docker run -it --rm -v `pwd`:/home/me node12 npx webpack $@
-    else
-        npx wepback $@
-    fi
-}
+if [ -z `which aws` ] && [ `which docker` ] ; then
+    aws() { dk run -it --rm -v ~/.config/aws:/root/.aws -v $(pwd):/aws aws "$@" ; }
+fi
+
+if [ -z `which npx` ] && [ `which docker` ] ; then
+    webpack() { dk run -it --rm -v `pwd`:/home/me node12 npx webpack "$@" ; }
+else
+    webpack() { npx wepback "$@"; }
+fi
 
 # bundle squidhall babylon objects
 cd squidhall && ./buildall.sh && cd -
