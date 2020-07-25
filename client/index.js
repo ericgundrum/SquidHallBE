@@ -1,32 +1,3 @@
-import * as BABYLON from 'babylonjs/babylon.max';
-import "./squidhall/libs/babylonjs/babylonjs.proceduralTextures.min.js"
-import "./squidhall/libs/babylonjs/babylonjs.materials.min.js"
-import "./squidhall/libs/babylonjs/loaders/babylonjs.loaders.min.js"
-import "./squidhall/libs/babylonjs/babylon.gui.min.js"
-//const BABYLON = require( "babylonjs" );
-const SQUIDSPACE = require( "./squidhall/libs/squidspace.js" );
-const SQUIDCOMMON = require( "./squidhall/libs/squidmods/squidcommon.js" );
-const SquidHall = require( "./squidhall/libs/squidhall.js" );
-window.SQUIDSPACE = SQUIDSPACE;
-window.SQUIDCOMMON = SQUIDCOMMON;
-
-const SQUIDDEBUG = require( "./squidhall/libs/squidmods/squiddebug.js" );
-window.SQUIDDEBUG = SQUIDDEBUG;
-import { flyCkbox, identCkbox, inspctCkbox, setupDebugBefore, setupDebugAfter, findObject }
-from 'exports-loader?exports[]=flyCkbox&exports[]=identCkbox&exports[]=inspctCkbox&exports[]=setupDebugBefore&exports[]=setupDebugAfter&exports[]=findObject!./squidhall/libs/squidhalldebug.js';
-window.flyCkbox = flyCkbox
-window.identCkbox = identCkbox
-window.inspctCkbox = inspctCkbox
-window.setupDebugBefore = setupDebugBefore
-window.setupDebugAfter = setupDebugAfter
-window.findObject = findObject
-
-const world = require( "./squidhall/libs/modules/world.js" );
-window.world = world;
-
-import hall from "./squidhall/libs/modules/hall.js";
-import furniture from "./squidhall/libs/modules/furniture.js";
-
 import { Client } from "colyseus.js";
 
 // adjust websocket endpoint for server runtime environment
@@ -41,8 +12,9 @@ const client = new Client(ENDPOINT);
 
 // Colyseus / Join Room
 client.joinOrCreate("SquidHall").then(room => {
-    var BABYLON = window.BABYLON;
-    var scene  = window.scene;
+    let BABYLON = window.BABYLON;
+    let scene   = window.scene;
+    let SquidHall = window.SquidHall;
 
     const playerViews = [];
 
@@ -71,10 +43,6 @@ client.joinOrCreate("SquidHall").then(room => {
         delete playerViews[key];
     };
 
-//    room.onStateChange((state) => {
-//        console.log("New room state:", state.toJSON());
-//    });
-
     // Keyboard listeners
     const position = { r: 0, x: 0, y: 0, z: 0 };
     window.addEventListener("keydown", function(e) {
@@ -88,13 +56,3 @@ client.joinOrCreate("SquidHall").then(room => {
         room.send('pos', position);
     });
 });
-
-window.welcomeMessage = {
-    "title": "Welcome to Squid Hall - A VR re-creation of the TSB Arena",
-    "text": "Your mouse controls the direction you are facing. " +
-            "The arrow keys or the W, A, S, and D keys control movement forward/back, and left/right. " +
-            "You can click on some of the objects to learn more about them.<br/><br/>" +
-            "Click the close button or outside this message box to start."
-};
-
-SquidHall.makeWorld([hall, furniture], null, null, true);
