@@ -20,7 +20,8 @@ const gameServer = new Server({
     server: server,
     express: app
 });
-gameServer.define("SquidHall", GameRoom);
+gameServer.define("SquidHall", GameRoom)
+          .filterBy(['title']);
 
 server.listen(port);
 console.log(`Listening on ${ port }`);

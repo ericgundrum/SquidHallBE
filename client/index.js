@@ -11,7 +11,8 @@ const ENDPOINT = `${ PROTOCOL }//${ HOSTNAME }:${ PORT }`;
 const client = new Client(ENDPOINT);
 
 // Colyseus / Join Room
-client.joinOrCreate("SquidHall").then(room => {
+const title = window.document.title.length ? window.document.title : "~purgatory~";
+client.joinOrCreate("SquidHall", { title: title }).then(room => {
     let BABYLON = window.BABYLON;
     let scene   = window.scene;
     let SquidHall = window.SquidHall;
