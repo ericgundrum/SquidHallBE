@@ -1,7 +1,8 @@
 import { Client } from "colyseus.js";
 
 // adjust websocket endpoint for server runtime environment
-const EC2_HOSTNAME = 'ec2-44-230-177-210.us-west-2.compute.amazonaws.com'; // CoNZealand cloud
+const EC2_HOSTNAME = 'squidhallmu.conzealand.nz'; // CoNZealand cloud
+//const EC2_HOSTNAME = 'ec2-44-230-177-210.us-west-2.compute.amazonaws.com'; // CoNZealand cloud
 //const EC2_HOSTNAME = 'ec2-18-222-3-245.us-east-2.compute.amazonaws.com';
 const HOSTNAME = window.location.hostname.endsWith('amazonaws.com') ? EC2_HOSTNAME : window.location.hostname;
 const PORT = process.env.NODE_ENV === 'production'
