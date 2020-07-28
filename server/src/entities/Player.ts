@@ -9,6 +9,7 @@ export class Position extends Schema {
 
 export class Player extends Schema {
     @type(Position) position = new Position();
+    @type("string") wp_uid;
 
     constructor () {
         super();

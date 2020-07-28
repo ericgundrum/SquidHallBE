@@ -1,7 +1,8 @@
 import { Client } from "colyseus.js";
 
 // adjust websocket endpoint for server runtime environment
-const EC2_HOSTNAME = 'ec2-18-222-3-245.us-east-2.compute.amazonaws.com';
+const EC2_HOSTNAME = 'ec2-44-230-177-210.us-west-2.compute.amazonaws.com'; // CoNZealand cloud
+//const EC2_HOSTNAME = 'ec2-18-222-3-245.us-east-2.compute.amazonaws.com';
 const HOSTNAME = window.location.hostname.endsWith('amazonaws.com') ? EC2_HOSTNAME : window.location.hostname;
 const PORT = process.env.NODE_ENV === 'production'
       ? window.location.port : 2657;
@@ -12,7 +13,7 @@ const client = new Client(ENDPOINT);
 
 // Colyseus / Join Room
 const title = window.document.title.length ? window.document.title : "~purgatory~";
-client.joinOrCreate("SquidHall", { title: title }).then(room => {
+client.joinOrCreate("SquidHall", { title: title, wp_uid: window.document.location.search.slice(1) }).then(room => {
     let BABYLON = window.BABYLON;
     let scene   = window.scene;
     let SquidHall = window.SquidHall;

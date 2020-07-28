@@ -20,8 +20,10 @@ export class GameRoom extends Room<StateHandler> {
         });
     }
 
-    onJoin (client) {
+    onJoin (client, options) {
+        client.wp_uid = options.wp_uid;
         const player = new Player();
+        player.wp_uid = options.wp_uid;
         player.position.r = 0;
         player.position.x = 0;
         player.position.y = 0;
