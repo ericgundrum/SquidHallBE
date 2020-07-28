@@ -14,7 +14,8 @@ Environment=ENTRY=server/lib/index.js
 SyslogIdentifier=SquidHall
 Type=simple
 # User=ubuntu
-ExecStart=/usr/bin/node --optimize_for_size --max_old_space_size=840 --gc_interval=100 ${WORKDIR}/${ENTRY}
+# ExecStart=/usr/bin/node --optimize_for_size --max_old_space_size=840 --gc_interval=100 ${WORKDIR}/${ENTRY}
+ExecStart=/usr/bin/node ${WORKDIR}/${ENTRY}
 Restart=on-failure
 RestartSec=2
 
