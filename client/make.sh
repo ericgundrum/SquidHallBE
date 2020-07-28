@@ -28,12 +28,10 @@ cd squidhall && ./buildall.sh && cd -
 # bundle webpack files into 'dist/'
 webpack --env.production
 
-# rename to allow for squidhall rooms
-mv dist/index.html dist/squidhall_mu.html
-
 # copy squidhall root files
 rsync -t squidhall/*.html dist/
 rsync -t squidhall/Gimble_* dist/
+rsync -t squidhall/Waveblaster001a_MAT_* dist/
 
 # copy squidhall dirs
 for d in audio css libs textures ; do
