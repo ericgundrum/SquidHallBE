@@ -87,7 +87,7 @@ Setup
 ```
 sudo apt update
 sudo apt install --assume-yes --auto-remove --no-install-recommends git npm
-git clone --depth=1 -b deployable https://github.com/ericgundrum/SquidHallBE.git
+git clone --depth=1 -b deployable_nz https://github.com/ericgundrum/SquidHallBE.git
 cd SquidHallBE
 npm run compile-server
 sudo systemctl enable server/squidhallmu.service
@@ -114,12 +114,12 @@ More information can be gleaned from
 
 ### Coordinating Access
 The main user entry point is any of several root files at
-http://squidhall.s3-website.us-east-2.amazonaws.com/
+http://squidhallvr.s3-website.us-west-2.amazonaws.com/
 
 That URL opens an index file listing several rooms available without multi-user capabilities.
 
-Currently multi-user is limited to
-http://squidhall.s3-website.us-east-2.amazonaws.com/squidhall_mu.html
+The multi-user main hall is
+http://squidhallvr.s3-website.us-west-2.amazonaws.com/squidhall.html
 
 The multi-user client must know how to find the multi-user server.
 Currently the server's generic hostname is coded in 'client/index.js'
