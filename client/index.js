@@ -12,9 +12,24 @@ const ENDPOINT = `${ PROTOCOL }//${ HOSTNAME }:${ PORT }`;
 
 const client = new Client(ENDPOINT);
 
+// extract destination parameters
+// https://stackoverflow.com/a/13419367
+function parseQuery(queryString) {
+    if(queryString.length == 0) {return;}
+    var query = {};
+    var pairs = (queryString[0] === '?' ? queryString.substr(1) : queryString).split(';');
+    for (var i = 0; i < pairs.length; i++) {
+        var pair = pairs[i].split('=');
+        query[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || '');
+    }
+    return query;
+}
+
+const query = parseQuery(window.location.search.substring(1));
+
 // Colyseus / Join Room
-const title = window.document.title.length ? window.document.title : "~purgatory~";
-client.joinOrCreate("SquidHall", { title: title, wp_uid: window.document.location.search.slice(1) }).then(room => {
+const rm_title = window.document.title.length ? window.document.title : "~purgatory~";
+client.joinOrCreate("SquidHall", { title: rm_title, badge: query }).then(room => {
     let BABYLON = window.BABYLON;
     let scene   = window.scene;
     let SquidHall = window.SquidHall;
@@ -32,8 +47,14 @@ client.joinOrCreate("SquidHall", { title: title, wp_uid: window.document.locatio
         }
 
         // create the player avatar, local or remote
+        let badge_options = undefined;
+        if(player.badge.name)
+        {
+            if(badge_options == undefined) { badge_options = {} }
+            badge_options['member-name'] = player.badge.name;
+        }
         let pos = new BABYLON.Vector3(player.position.x, player.position.y, player.position.z)
-        playerViews[key] = SquidHall.makeAvatar(key, pos, new BABYLON.Vector3(0, player.position.r, 0), scene);
+        playerViews[key] = SquidHall.makeAvatar(key, pos, new BABYLON.Vector3(0, player.position.r, 0), scene, badge_options);
     };
 
     room.state.players.onChange = function(player, key) {
