@@ -28,6 +28,9 @@ cd squidhall && ./buildall.sh && cd -
 # bundle webpack files into 'dist/'
 webpack --env.production
 
+# copy favicon
+rsync -t favicon.ico dist/
+
 # copy squidhall root files
 rsync -t squidhall/*.html dist/
 rsync -t squidhall/Gimble_* dist/
