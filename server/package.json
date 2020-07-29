@@ -13,11 +13,12 @@
     "@types/cors": "2.8.6",
     "@types/express": "4.17.7",
     "@types/node": "12.12.51",
-    "onchange": "7.0.2",
-    "ts-node": "8.10.2",
-    "typescript": "3.9.7",
     "colyseus": "0.13.7",
     "cors": "2.8.5",
-    "express": "4.17.1"
+    "express": "4.17.1",
+    "greenlock-express": "4.0.3",
+    "onchange": "7.0.2",
+    "ts-node": "8.10.2",
+    "typescript": "3.9.7"
   }
 }
