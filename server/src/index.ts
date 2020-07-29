@@ -17,6 +17,8 @@ app.use(express.static(static_dir));
 // Create HTTP & WebSocket servers
 const server = http.createServer(app);
 const gameServer = new Server({
+    pingInterval: 2000,
+    pingMaxRetries: 5,
     server: server,
     express: app
 });

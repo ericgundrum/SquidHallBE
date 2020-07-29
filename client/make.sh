@@ -44,5 +44,5 @@ rm -rf dist/libs/modules/content/ || true
 
 # sync to aws with `make.sh sync`
 if [ ${1} ] && [ ${1} == 'sync' ] ; then
-    aws --profile conzealand s3 sync dist/ s3://squidhallvr/ --delete --storage-class REDUCED_REDUNDANCY
+    aws --profile conzealand s3 sync dist/ s3://squidhallvr.conzealand.nz/ --delete --storage-class REDUCED_REDUNDANCY
 fi

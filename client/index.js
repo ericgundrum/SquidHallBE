@@ -4,7 +4,8 @@ import { Client } from "colyseus.js";
 const EC2_HOSTNAME = 'squidhallmu.conzealand.nz'; // CoNZealand cloud
 //const EC2_HOSTNAME = 'ec2-44-230-177-210.us-west-2.compute.amazonaws.com'; // CoNZealand cloud
 //const EC2_HOSTNAME = 'ec2-18-222-3-245.us-east-2.compute.amazonaws.com';
-const HOSTNAME = window.location.hostname.endsWith('amazonaws.com') ? EC2_HOSTNAME : window.location.hostname;
+const HOSTNAME = (window.location.hostname.endsWith('amazonaws.com')
+                 || window.location.hostname.endsWith('conzealand.nz')) ? EC2_HOSTNAME : window.location.hostname;
 const PORT = process.env.NODE_ENV === 'production'
       ? window.location.port : 2657;
 const PROTOCOL = window.location.protocol.replace("http", "ws");
