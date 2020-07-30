@@ -64,7 +64,8 @@ client.joinOrCreate("SquidHall", { title: rm_title, badge: query }).then(room =>
     };
 
     room.state.players.onRemove = function(player, key) {
-        scene.removeMesh(playerViews[key]);
+        scene.removeMesh(playerViews[key], true);
+        playerViews[key].dispose();
         delete playerViews[key];
     };
 
