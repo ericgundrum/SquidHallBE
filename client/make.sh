@@ -34,6 +34,7 @@ rsync -t favicon.ico dist/
 # copy squidhall root files
 rsync -t squidhall/*.html dist/
 rsync -t squidhall/Gimble_* dist/
+rsync -t squidhall/Goliathon_Weapon001a_* dist/
 rsync -t squidhall/Waveblaster001a_MAT_* dist/
 
 # copy squidhall dirs
