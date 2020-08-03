@@ -1,0 +1,6 @@
+[Unit]
+Description=SquidHallVR Colyseus server daily restart to clear the hall
+
+[Service]
+Type=oneshot
+ExecStart=/bin/systemctl restart squidhallmu
