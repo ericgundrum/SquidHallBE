@@ -92,9 +92,9 @@ sudo reboot
 git clone --depth=1 -b deployable_nz https://github.com/ericgundrum/SquidHallBE.git
 cd SquidHallBE
 npm run compile-server
-sudo systemctl enable ${PWD}/server/squidhallmu.service
-sudo systemctl link ${PWD}/server/squidhallmu_restart.service
-sudo systemctl enable ${PWD}/server/squidhallmu_restart.timer
+sudo systemctl enable ${PWD}/server/systemd/squidhallmu.service
+sudo systemctl link ${PWD}/server/systemd/squidhallmu_restart.service
+sudo systemctl enable ${PWD}/server/systemd/squidhallmu_restart.timer
 ```
 
 Update
