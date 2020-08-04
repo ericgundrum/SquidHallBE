@@ -29,7 +29,7 @@ Be prepared for some pain if you are unfamiliar with submodules and rely on GUI 
 
 Using a docker container for development encapsulates the dependencies described below.
 It abstracts away platform idiosyncracies.
-It also keeps the computer safe from rouge npm packages.
+It also keeps the computer safe from rouge packages.
 
 See [Docker-Desktop](https://www.docker.com/products/docker-desktop)
 to learn about installing and using docker.
@@ -67,30 +67,34 @@ This deployment can be run entirely within a container such as the one created f
 
 ## AWS Deployment
 
-Deployment to AWS is a bit more complicated to improve performance and scaling flexibility.
+Deployment to AWS improves performance and scaling flexibility, but it is a bit more complicated.
 
 ### Client
-All client assets are static. They are deployed from 's3://squidhall/'.
+All client assets are static. They are deployed from 's3://squidhallvr.conzealand.com/'.
 Executing 'client/make.sh' will compile the babylon files, the colyseus client files
 and copy all files needed for the client runtime to 'client/dist'.
 
 Executing 'client/make.sh sync' makes and copies files as above and then copies
-everything in 'client/dist' to 's3://squidhall/' where it is publically accessible.
+everything in 'client/dist' to 's3://squidhallvr.conzealand.com/' where it is publically accessible.
 This `sync` command requires the `aws-cli` tool be configured with credentials to the destination.
 
 ### Server
 Colyseus server is deployed to an EC2 t2.micro instance listening on port 80.
 The server must have `git` and `npm` installed.
-Currently the server is manually setup, updated and activated using these commands
+Currently the server is setup, updated and activated manually using these commands
 
 Setup
 ```
 sudo apt update
+sudo apt upgrade -y
 sudo apt install --assume-yes --auto-remove --no-install-recommends git npm
+sudo reboot
 git clone --depth=1 -b deployable_nz https://github.com/ericgundrum/SquidHallBE.git
 cd SquidHallBE
 npm run compile-server
-sudo systemctl enable server/squidhallmu.service
+sudo systemctl enable ${PWD}/server/squidhallmu.service
+sudo systemctl link ${PWD}/server/squidhallmu_restart.service
+sudo systemctl enable ${PWD}/server/squidhallmu_restart.timer
 ```
 
 Update
@@ -104,6 +108,7 @@ sudo systemctl restart squidhallmu.service
 Activation
 ```
 sudo systemctl start squidhallmu.service
+sudo systemctl start squidhallmu_restart.timer
 ```
 
 Colyseus server log message are written to the system journal.
@@ -114,12 +119,12 @@ More information can be gleaned from
 
 ### Coordinating Access
 The main user entry point is any of several root files at
-http://squidhallvr.s3-website.us-west-2.amazonaws.com/
+http://squidhallvr.conzealand.com.s3-website.us-west-2.amazonaws.com/
 
 That URL opens an index file listing several rooms available without multi-user capabilities.
 
 The multi-user main hall is
-http://squidhallvr.s3-website.us-west-2.amazonaws.com/squidhall.html
+http://squidhallvr.conzealand.com.s3-website.us-west-2.amazonaws.com/squidhall.html
 
 The multi-user client must know how to find the multi-user server.
 Currently the server's generic hostname is coded in 'client/index.js'
@@ -137,7 +142,7 @@ If not using docker as described above, you will need nodeJS and `npm` to instal
 - [Colyseus 0.13.x](https://github.com/colyseus/colyseus)
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
-| [Live demo](https://babylonjs-multiplayer.herokuapp.com/)
+| [Live demo](https://squidhall.herokuapp.com/)
 
 **Requires [NodeJS v12.0.0+](https://nodejs.org/en/download/)**
 
@@ -149,8 +154,7 @@ Each needs npm dependencies installed before running.
 
 ### Client Application Manually
 
-To be able to build the client application, you'll need to enter in the folder,
-and install its dependencies first.
+To be able to build the client application, enter the client folder and install its dependencies
 
 ```
 cd client
@@ -158,12 +162,13 @@ npm install
 npm start
 ```
 
-This will spawn the `webpack-dev-server`, listening on [http://localhost:8080](http://localhost:8080).
+This will compile the 'squidhall' Babylon files and then spawn the `webpack-dev-server`
+listening on [http://localhost:8080](http://localhost:8080).
 
 
 ### Server Application Manually
 
-For the development server, the steps are exactly the same.
+For the development server, the steps are the same.
 
 ```
 cd server
@@ -171,7 +176,8 @@ npm install
 npm start
 ```
 
-This will spawn a web socket server, listening on [ws://localhost:2657](ws://localhost:2657).
+This will compile the Colyseus typescript files and then spawn a web socket server
+listening on [ws://localhost:2657](ws://localhost:2657).
 
 ## Documentation
 
