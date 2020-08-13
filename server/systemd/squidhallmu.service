@@ -7,7 +7,7 @@ After=network-online.target
 Environment=PORT=80
 Environment=DEBUG=colyseus:*
 Environment=NODE_ENV=production
-Environment=WORKDIR=/home/ubuntu/SquidHallBE
+Environment=WORKDIR=/SquidHallBE
 Environment=ENTRY=server/lib/index.js
 
 SyslogIdentifier=SquidHall

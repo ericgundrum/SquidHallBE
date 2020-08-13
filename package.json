@@ -1,13 +1,13 @@
 {
-  "name": "SquidHallBE",
-  "version": "0.1.0",
+  "name": "SquidHallMU",
+  "version": "1.0.0",
   "description": "CoNZealand Squid Hall social space.",
   "main": "server/lib/index.js",
   "scripts": {
     "compile-server": "npm install --prefix server && cd server && npx tsc && cd -",
     "compile-client": "npm install --prefix client && cd client && npx webpack --env.production && cd -",
     "install": "npm run compile-server && npm run compile-client",
-    "start": "DEBUG=colyseus:* node --max_old_space_size=940 --gc_interval=100 server/lib/index.js"
+    "start": "DEBUG=colyseus:* node --max_old_space_size=840 --gc_interval=100 server/lib/index.js"
   },
   "engines": {
     "node": "12"
@@ -16,6 +16,6 @@
     "url": "https://github.com/ericgundrum/SquidHallBE",
     "type": "git"
   },
-  "author": "",
+  "author": "Eric Gundrum",
   "license": "Apache 2.0"
 }

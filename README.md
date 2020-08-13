@@ -79,7 +79,9 @@ everything in 'client/dist' to 's3://squidhallvr.conzealand.com/' where it is pu
 This `sync` command requires the `aws-cli` tool be configured with credentials to the destination.
 
 ### Server
-Colyseus server is deployed to an EC2 t2.micro instance listening on port 80.
+Colyseus server is deployed to an EC2 t2.micro instance running nodeJS v10 on Ubunutu Server 20.04.
+The Colyseus server listens on port 80.
+
 The server must have `git` and `npm` installed.
 Currently the server is setup, updated and activated manually using these commands
 
@@ -111,6 +113,12 @@ sudo systemctl start squidhallmu.service
 sudo systemctl start squidhallmu_restart.timer
 ```
 
+The server restarts automatically once a day to clear the Hall of
+all visitors at the time specified in 'server/quidhallmu_restart.timer'.
+This has the added benefit of releasing any resources leaked by the nodeJS server.
+Note that clients are not notified they have been kicked from the Hall;
+the only way they know is that visible avatars are fozen in place.
+
 Colyseus server log message are written to the system journal.
 View them with a command such as
 `sudo journalctl -u squidhallmu.service --since=-5m -f`.
@@ -119,15 +127,18 @@ More information can be gleaned from
 
 ### Coordinating Access
 The main user entry point is any of several root files at
-http://squidhallvr.conzealand.com.s3-website.us-west-2.amazonaws.com/
+http://squidhallvr.conzealand.com/
 
 That URL opens an index file listing several rooms available without multi-user capabilities.
 
 The multi-user main hall is
-http://squidhallvr.conzealand.com.s3-website.us-west-2.amazonaws.com/squidhall.html
+http://squidhallvr.conzealand.com/squidhall.html?name=Visitor
+
+The url query string passes the client avatar's name to be displayed on the badge.
+The query string may be left off to display no name on the avatar's badge.
 
 The multi-user client must know how to find the multi-user server.
-Currently the server's generic hostname is coded in 'client/index.js'
+Currently the server's hostname is coded in 'client/index.js'
 as `EC2_HOSTNAME`. Its value must be updated and the client rebuilt
 if the colyseus server hostname changes.
 
@@ -135,7 +146,7 @@ if the colyseus server hostname changes.
 
 If not using docker as described above, you will need nodeJS and `npm` to install project dependencies
 
-- [Node.js 12.x+](https://nodejs.org/)
+- [Node.js 10.x+](https://nodejs.org/)
 - [Webpack 4.x](https://github.com/webpack/webpack)
 - [TypeScript 3.x](https://github.com/Microsoft/TypeScript)
 - [BabylonJS 4.x](https://github.com/BabylonJS/Babylon.js)
@@ -144,9 +155,12 @@ If not using docker as described above, you will need nodeJS and `npm` to instal
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 | [Live demo](https://squidhall.herokuapp.com/)
 
-**Requires [NodeJS v12.0.0+](https://nodejs.org/en/download/)**
+NodeJS v12 typically is used for development.
+Deployment to AWS running nodeJS v10 on Ubuntu 20.04 worked without issue.
 
 ## How to Use without Docker
+_While this workflow is expected to work, it is not maintained.
+There could be problems with the `npm` scripts used in this way._
 
 Inside this repository, there's two separate applications.
 The client (babylonjs + colyseus client) and the server (nodejs + colyseus server).
