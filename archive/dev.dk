@@ -1,0 +1,22 @@
+# build docker image faster without context
+# cat mkiso.dk | docker build -t mkiso -
+
+FROM ubuntu:focal
+
+RUN \
+    apt update && \
+    apt update -y && \
+    apt install --no-install-recommends \
+        squashfs-tools \
+        genisoimage \
+        debootstrap \
+        isolinux \
+        syslinux
+
+WORKDIR /wrk
+
+# run container with $PWD mounted as WORKDIR
+# when $PWD is project working dir, file edits in host appear in container
+
+# to get a docker shell
+# docker run -it --rm -v ${PWD}:/wrk mkiso
