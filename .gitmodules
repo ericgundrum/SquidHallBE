@@ -1,3 +1,0 @@
-[submodule "client/squidhall"]
-	path = client/squidhall
-	url = https://github.com/voidampersand/open-squid-hall.git
