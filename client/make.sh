@@ -2,7 +2,7 @@
 # make SquidHall clients
 #
 # `./make.sh` to populate 'dist/' with webpack bundles and squidhall assets
-# `./make.sh sync` to also sync 'dist/' to aws 's3://squidhall/'
+# `./make.sh sync` to also sync 'dist/' to aws s3
 
 set -e
 
@@ -33,10 +33,6 @@ rsync -t favicon.ico dist/
 
 # copy squidhall root files
 rsync -t squidhall/*.html dist/
-rsync -t squidhall/Gimble_* dist/
-rsync -t squidhall/Goliathon_Weapon001a_* dist/
-rsync -t squidhall/file9file7file6.jpg dist/
-rsync -t squidhall/Waveblaster001a_MAT_* dist/
 
 # copy squidhall dirs
 for d in audio css libs textures ; do
@@ -44,10 +40,11 @@ for d in audio css libs textures ; do
 done
 
 # remove unused files
-rm dist/audio/crowdambiance.wav || true
+rm dist/audio/*.wav || true
 rm -rf dist/libs/modules/content/ || true
 
 # sync to aws with `make.sh sync`
 if [ ${1} ] && [ ${1} == 'sync' ] ; then
-    aws --profile conzealand s3 sync dist/ s3://squidhallvr.conzealand.nz/ --delete --storage-class REDUCED_REDUNDANCY
+    echo 'aws not configured'
+#    aws --profile my_profile s3 sync dist/ s3://example.com/ --delete --storage-class REDUCED_REDUNDANCY
 fi
