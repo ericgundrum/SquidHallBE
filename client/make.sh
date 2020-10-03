@@ -1,4 +1,4 @@
-#! /usr/bin/env bash
+#! /usr/bin/env sh
 # make SquidHall clients
 #
 # `./make.sh` to populate 'dist/' with webpack bundles and squidhall assets
@@ -19,7 +19,7 @@ fi
 if [ -z `which npx` ] && [ `which docker` ] ; then
     webpack() { dk run -it --rm -v `pwd`:/home/me node12 npx webpack "$@" ; }
 else
-    webpack() { npx wepback "$@"; }
+    webpack() { npx webpack "$@"; }
 fi
 
 # bundle squidhall babylon objects

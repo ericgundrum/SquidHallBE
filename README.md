@@ -49,7 +49,8 @@ Monitor the servers with a command such as `tail -f log/client.log`.
 The first run will take several minutes for each server to install its dependencies.
 Be patient.
 
-Once the servers are running, access SquidHall with `http://localhost:8080`.
+Once the servers are running, access SquidHall with `http://localhost:2657`.
+Or use port 8080 to access the webpack hotsync server.
 
 Other options are described in 'dev.dk'.
 

@@ -3,7 +3,7 @@
 
 FROM alpine:3.12
 
-RUN apk add --no-cache npm git python3
+RUN apk add --no-cache npm git python3 rsync
 
 ARG uid
 ARG user=me
