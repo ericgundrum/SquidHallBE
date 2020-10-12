@@ -31,6 +31,9 @@ webpack --env.production
 # copy favicon
 rsync -t favicon.ico dist/
 
+# copy lobby form
+rsync -t lobby.html dist/
+
 # copy squidhall root files
 rsync -t squidhall/*.html dist/
 
