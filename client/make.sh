@@ -4,7 +4,7 @@
 # `./make.sh` to populate 'dist/' with webpack bundles and squidhall assets
 # `./make.sh sync` to also sync 'dist/' to aws s3
 
-set -e
+set -ex
 
 if [ $(which docker) ] && [ "$(id)" == *docker* ] ; then
     dk() { docker "$@" ; }
