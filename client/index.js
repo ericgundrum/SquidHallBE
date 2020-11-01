@@ -17,6 +17,7 @@ const client = new Client(ENDPOINT);
 // https://stackoverflow.com/a/13419367
 function parseQuery(queryString) {
     if(queryString.length == 0) {return;}
+    queryString = queryString.replace(/\+/g, '%20'); // force URI encoding to %20 instead of +
     var query = {};
     var pairs = (queryString[0] === '?' ? queryString.substr(1) : queryString).split(';');
     for (var i = 0; i < pairs.length; i++) {
